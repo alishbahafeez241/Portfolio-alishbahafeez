@@ -27,15 +27,18 @@ html, body, [class*="css"]  { font-family: 'Space Grotesk', sans-serif; }
 
 ::selection { background: #29ffc6; color: #04121a; }
 
-.section-wrap { padding: 70px 6% 10px 6%; }
+.section-wrap { padding: 70px 6% 10px 6%; scroll-margin-top: 30px; }
 
-.eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    color: #29ffc6;
-    letter-spacing: 3px;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    margin-bottom: 8px;
+html { scroll-behavior: smooth; }
+
+.navpill {
+    font-family: 'JetBrains Mono', monospace; font-size:0.8rem; color:#c9d6e3;
+    border:1px solid rgba(255,255,255,0.14); padding:8px 18px; border-radius:20px;
+    text-decoration:none; transition: all .2s ease; background: rgba(255,255,255,0.02);
+}
+.navpill:hover {
+    color:#04121a; background:#29ffc6; border-color:#29ffc6;
+    box-shadow: 0 0 18px rgba(41,255,198,0.4); transform: translateY(-2px);
 }
 
 .section-title {
@@ -207,19 +210,20 @@ components.html(hero_html, height=490)
 # ----------------------------------------------------------------------------
 # NAV-ish quick links row
 # ----------------------------------------------------------------------------
+nav_items = [
+    ("About", "about"), ("Skills", "skills"), ("Experience", "experience"),
+    ("Projects", "projects"), ("Certifications", "certifications"), ("Contact", "contact"),
+]
 st.markdown("""
 <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin: 18px 0 0 0;">
 """ + "".join([
-    f'<span style="font-family:\'JetBrains Mono\', monospace; font-size:0.78rem; color:#8fa3b8; '
-    f'border:1px solid rgba(255,255,255,0.1); padding:6px 16px; border-radius:20px;">{s}</span>'
-    for s in ["About", "Skills", "Experience", "Projects", "Certifications", "Contact"]
+    f'<a class="navpill" href="#{anchor}">{label}</a>' for label, anchor in nav_items
 ]) + "</div>", unsafe_allow_html=True)
 
 # ----------------------------------------------------------------------------
 # ABOUT
 # ----------------------------------------------------------------------------
-st.markdown('<div class="section-wrap">', unsafe_allow_html=True)
-st.markdown('<div class="eyebrow">// 01 · about</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-wrap" id="about">', unsafe_allow_html=True)
 st.markdown('<div class="section-title">About Me</div>', unsafe_allow_html=True)
 
 col1, col2 = st.columns([1.4, 1])
@@ -255,8 +259,7 @@ st.markdown('<hr class="div">', unsafe_allow_html=True)
 # ----------------------------------------------------------------------------
 # SKILLS
 # ----------------------------------------------------------------------------
-st.markdown('<div class="section-wrap">', unsafe_allow_html=True)
-st.markdown('<div class="eyebrow">// 02 · skills</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-wrap" id="skills">', unsafe_allow_html=True)
 st.markdown('<div class="section-title">Technical Skills</div>', unsafe_allow_html=True)
 
 skill_groups = {
@@ -283,8 +286,7 @@ st.markdown('<hr class="div">', unsafe_allow_html=True)
 # ----------------------------------------------------------------------------
 # EXPERIENCE
 # ----------------------------------------------------------------------------
-st.markdown('<div class="section-wrap">', unsafe_allow_html=True)
-st.markdown('<div class="eyebrow">// 03 · experience</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-wrap" id="experience">', unsafe_allow_html=True)
 st.markdown('<div class="section-title">Professional Experience</div>', unsafe_allow_html=True)
 
 st.markdown("""
@@ -310,8 +312,7 @@ st.markdown('<hr class="div">', unsafe_allow_html=True)
 # ----------------------------------------------------------------------------
 # PROJECTS
 # ----------------------------------------------------------------------------
-st.markdown('<div class="section-wrap">', unsafe_allow_html=True)
-st.markdown('<div class="eyebrow">// 04 · projects</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-wrap" id="projects">', unsafe_allow_html=True)
 st.markdown('<div class="section-title">Featured Projects</div>', unsafe_allow_html=True)
 
 projects = [
@@ -369,8 +370,7 @@ st.markdown('<hr class="div">', unsafe_allow_html=True)
 # ----------------------------------------------------------------------------
 # CERTIFICATIONS
 # ----------------------------------------------------------------------------
-st.markdown('<div class="section-wrap">', unsafe_allow_html=True)
-st.markdown('<div class="eyebrow">// 05 · certifications</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-wrap" id="certifications">', unsafe_allow_html=True)
 st.markdown('<div class="section-title">Certifications</div>', unsafe_allow_html=True)
 st.markdown("""
 <div class="card">
@@ -384,8 +384,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 # CONTACT / FOOTER
 # ----------------------------------------------------------------------------
 st.markdown("""
-<div class="footer-cta">
-  <div class="eyebrow" style="text-align:center;">// 06 · contact</div>
+<div class="footer-cta" id="contact">
   <div class="section-title" style="border:none; text-align:center; padding-left:0;">Let's Connect</div>
   <p style="color:#8fa3b8; max-width:520px; margin:0 auto 20px auto;">
     Open to cybersecurity, full-stack, and machine learning opportunities, internships, and collaborations.
