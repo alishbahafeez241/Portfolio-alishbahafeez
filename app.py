@@ -1,5 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
+from pathlib import Path
 
 st.set_page_config(
     page_title="Alishba Hafeez | Cybersecurity & Full-Stack Developer",
@@ -9,7 +10,16 @@ st.set_page_config(
 )
 
 # ----------------------------------------------------------------------------
+# PROJECT LINKS — fill this in once you deploy the coffee shop site
+# (see DEPLOY_INSTRUCTIONS.md in the coffee-beans-site.zip for a 60-second guide)
+# ----------------------------------------------------------------------------
+COFFEE_SHOP_LIVE_URL = ""  # <-- paste your deployed Netlify / GitHub Pages URL here
+
+ASSETS_DIR = Path(__file__).parent / "assets"
+
+# ----------------------------------------------------------------------------
 # GLOBAL STYLE
+
 # ----------------------------------------------------------------------------
 st.markdown("""
 <style>
@@ -326,8 +336,11 @@ projects = [
     },
     {
         "title": "☕ Coffee Beans Shop",
-        "desc": "A web development project — built the frontend and partially worked on the backend for an e-commerce style coffee shop.",
-        "tags": ["Web Dev", "Frontend", "Backend"],
+        "desc": "A 9-page full-stack coffee shop site — home, menu, cart, reviews, contact, login/signup — "
+                "built with HTML, Bootstrap, AngularJS and jQuery.",
+        "tags": ["HTML/CSS", "Bootstrap", "AngularJS", "jQuery"],
+        **({"link": COFFEE_SHOP_LIVE_URL, "link_text": "🔗 Live Demo"} if COFFEE_SHOP_LIVE_URL else {}),
+        "preview": "coffee",
     },
     {
         "title": "💬 Basic Chatbot (AI/NLP)",
@@ -364,6 +377,21 @@ for i, p in enumerate(projects):
           {link_html}
         </div>
         """, unsafe_allow_html=True)
+
+        if p.get("preview") == "coffee":
+            if not COFFEE_SHOP_LIVE_URL:
+                st.caption("No live URL set yet — showing an embedded preview of the home page below.")
+            with st.expander("👀 Open embedded live preview"):
+                preview_file = ASSETS_DIR / "coffee_index_preview.html"
+                if preview_file.exists():
+                    components.html(preview_file.read_text(encoding="utf-8"), height=650, scrolling=True)
+                    st.caption(
+                        "This is the actual home page rendering live. It's a 9-page site "
+                        "(menu, cart, reviews, login, signup...) — deploy the full site for free "
+                        "to unlock navigation between pages; see DEPLOY_INSTRUCTIONS.md."
+                    )
+                else:
+                    st.info("Preview file not found — make sure the `assets/` folder ships next to app.py.")
 st.markdown('</div>', unsafe_allow_html=True)
 st.markdown('<hr class="div">', unsafe_allow_html=True)
 
