@@ -13,7 +13,7 @@ st.set_page_config(
 # PROJECT LINKS — fill this in once you deploy the coffee shop site
 # (see DEPLOY_INSTRUCTIONS.md in the coffee-beans-site.zip for a 60-second guide)
 # ----------------------------------------------------------------------------
-COFFEE_SHOP_LIVE_URL = ""  # <-- paste your deployed Netlify / GitHub Pages URL here
+COFFEE_SHOP_LIVE_URL = "https://alishbahafeez241.github.io/Coffee-Shop-Website/"  # <-- paste your deployed Netlify / GitHub Pages URL here
 
 ASSETS_DIR = Path(__file__).parent / "assets"
 
@@ -28,7 +28,7 @@ st.markdown("""
 html, body, [class*="css"]  { font-family: 'Space Grotesk', sans-serif; }
 
 #MainMenu, footer, header {visibility: hidden;}
-.block-container { padding-top: 0rem; padding-bottom: 0rem; max-width: 1200px; }
+.block-container { padding-top: 0rem; padding-bottom: 2rem; max-width: 1600px; padding-left: 3rem; padding-right: 3rem; }
 
 .stApp {
     background: radial-gradient(circle at 20% 10%, #0d1b2a 0%, #060a12 45%, #030509 100%);
@@ -37,7 +37,12 @@ html, body, [class*="css"]  { font-family: 'Space Grotesk', sans-serif; }
 
 ::selection { background: #29ffc6; color: #04121a; }
 
-.section-wrap { padding: 70px 6% 10px 6%; scroll-margin-top: 30px; }
+.section-wrap { padding: 70px 2% 10px 2%; scroll-margin-top: 30px; }
+
+/* Make Streamlit's column rows stretch so cards in the same row line up */
+div[data-testid="stHorizontalBlock"] { align-items: stretch; }
+div[data-testid="column"] { display: flex; flex-direction: column; }
+div[data-testid="column"] > div { display: flex; flex-direction: column; flex: 1; }
 
 html { scroll-behavior: smooth; }
 
@@ -67,6 +72,10 @@ html { scroll-behavior: smooth; }
     padding: 22px 24px;
     margin-bottom: 18px;
     transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-sizing: border-box;
 }
 .card:hover {
     transform: translateY(-4px);
@@ -74,10 +83,16 @@ html { scroll-behavior: smooth; }
     box-shadow: 0 10px 30px rgba(41,255,198,0.08);
 }
 
+.card.card-skill { min-height: 160px; }
+.card.card-cert { min-height: 110px; }
+.card.card-project { min-height: 230px; }
+
 .card h4 { margin: 0 0 6px 0; color: #ffffff; font-size: 1.12rem; }
 .card p { margin: 0; color: #b7c4d3; font-size: 0.93rem; line-height: 1.5; }
+.card .tag-row { margin-top: auto; padding-top: 10px; }
 .card .tag {
     display:inline-block; font-family:'JetBrains Mono', monospace; font-size:0.68rem;
+
     color:#29ffc6; border:1px solid rgba(41,255,198,0.4); border-radius:20px;
     padding:2px 10px; margin: 10px 6px 0 0;
 }
@@ -286,7 +301,7 @@ for i, (group, skills) in enumerate(skill_groups.items()):
     with cols[i % 2]:
         pills = "".join([f'<span class="skill-pill">{s}</span>' for s in skills])
         st.markdown(f"""
-        <div class="card">
+        <div class="card card-skill">
           <h4>{group}</h4>
           <div>{pills}</div>
         </div>
@@ -340,7 +355,7 @@ projects = [
         "desc": "A 9-page full-stack coffee shop site — home, menu, cart, reviews, contact, login/signup — "
                 "built with HTML, Bootstrap, AngularJS and jQuery.",
         "tags": ["HTML/CSS", "Bootstrap", "AngularJS", "jQuery"],
-        **({"link": "https://alishbahafeez241.github.io/Coffee-Shop-Website/", "link_text": "🔗 Live Demo"} if COFFEE_SHOP_LIVE_URL else {}),
+        **({"link": COFFEE_SHOP_LIVE_URL, "link_text": "🔗 Live Demo"} if COFFEE_SHOP_LIVE_URL else {}),
         "preview": "coffee",
     },
     {
@@ -369,13 +384,12 @@ cols = st.columns(2)
 for i, p in enumerate(projects):
     with cols[i % 2]:
         tags_html = "".join([f'<span class="tag">{t}</span>' for t in p["tags"]])
-        link_html = f'<div style="margin-top:10px;"><a href="{p["link"]}" target="_blank">{p["link_text"]} →</a></div>' if "link" in p else ""
+        link_html = f'<div style="margin-top:8px;"><a href="{p["link"]}" target="_blank">{p["link_text"]} →</a></div>' if "link" in p else ""
         st.markdown(f"""
-        <div class="card">
+        <div class="card card-project">
           <h4>{p['title']}</h4>
           <p>{p['desc']}</p>
-          <div>{tags_html}</div>
-          {link_html}
+          <div class="tag-row">{tags_html}{link_html}</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -414,7 +428,7 @@ cols = st.columns(2)
 for i, (icon, title, org) in enumerate(certifications):
     with cols[i % 2]:
         st.markdown(f"""
-        <div class="card">
+        <div class="card card-cert">
           <h4>{icon} {title}</h4>
           <p>{org}</p>
         </div>
