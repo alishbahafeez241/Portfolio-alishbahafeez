@@ -275,8 +275,9 @@ st.markdown('<div class="section-title">Technical Skills</div>', unsafe_allow_ht
 skill_groups = {
     "🛡️ Cybersecurity": ["Kali Linux", "Wireshark", "Network Security Fundamentals", "Cisco Packet Tracer"],
     "💻 Programming": ["C", "C++", "Python", "C#", "HTML", "JavaScript", "CSS", "Bootstrap", "JSON"],
+    "🧩 Frameworks & Backend": ["ASP.NET (DB Backend)", "Angular", "React (Basics)"],
     "📊 Data & ML": ["Excel", "Python", "Matplotlib", "Predictive Modeling"],
-    "🗄️ Database": ["MySQL"],
+    "🗄️ Database": ["MySQL", "ASP.NET DB Backends"],
     "🌐 Networking": ["Linux", "Wireshark", "Cisco"],
     "🧰 Tools": ["MS Word", "PowerPoint", "Excel"],
 }
@@ -302,13 +303,13 @@ st.markdown('<div class="section-title">Professional Experience</div>', unsafe_a
 st.markdown("""
 <div class="timeline-item">
   <h4>Remote Cybersecurity Intern — Arch Technologies</h4>
-  <div class="meta">Since 01 April 2026 · In Progress</div>
-  <p>Applying security fundamentals and hands-on tooling (Kali Linux, Wireshark) in a remote, real-world environment.</p>
+  <div class="meta">Started 01 April 2026 · Completed</div>
+  <p>Applied security fundamentals and hands-on tooling (Kali Linux, Wireshark) in a remote, real-world environment.</p>
 </div>
 <div class="timeline-item">
   <h4>Remote Full-Stack Intern — Developer Hub Corporation</h4>
-  <div class="meta">Since 27 April 2026 · In Progress</div>
-  <p>Building and maintaining full-stack web applications, working across frontend and backend.</p>
+  <div class="meta">Started 27 April 2026 · Completed</div>
+  <p>Built and maintained full-stack web applications, working across frontend and backend.</p>
 </div>
 <div class="timeline-item">
   <h4>Teaching Experience</h4>
@@ -339,7 +340,7 @@ projects = [
         "desc": "A 9-page full-stack coffee shop site — home, menu, cart, reviews, contact, login/signup — "
                 "built with HTML, Bootstrap, AngularJS and jQuery.",
         "tags": ["HTML/CSS", "Bootstrap", "AngularJS", "jQuery"],
-        **({"link": COFFEE_SHOP_LIVE_URL, "link_text": "🔗 Live Demo"} if COFFEE_SHOP_LIVE_URL else {}),
+        **({"link": "https://alishbahafeez241.github.io/Coffee-Shop-Website/", "link_text": "🔗 Live Demo"} if COFFEE_SHOP_LIVE_URL else {}),
         "preview": "coffee",
     },
     {
@@ -400,12 +401,24 @@ st.markdown('<hr class="div">', unsafe_allow_html=True)
 # ----------------------------------------------------------------------------
 st.markdown('<div class="section-wrap" id="certifications">', unsafe_allow_html=True)
 st.markdown('<div class="section-title">Certifications</div>', unsafe_allow_html=True)
-st.markdown("""
-<div class="card">
-  <h4>🏅 Introduction to Cybersecurity</h4>
-  <p>Cisco Networking Academy</p>
-</div>
-""", unsafe_allow_html=True)
+
+certifications = [
+    ("🛡️", "Cybersecurity Internship Completion", "Arch Technologies"),
+    ("💻", "Full-Stack Development Internship Completion", "Developer Hub Corporation"),
+    ("🏅", "Introduction to Cybersecurity", "Cisco Networking Academy"),
+    ("🖥️", "Operating Systems Basics", "Certificate of Completion"),
+    ("🏆", "ICPC Participation Certificate", "Capital University of Science and Technology"),
+    ("🎓", "Dean's Honor Roll", "Capital University of Science and Technology"),
+]
+cols = st.columns(2)
+for i, (icon, title, org) in enumerate(certifications):
+    with cols[i % 2]:
+        st.markdown(f"""
+        <div class="card">
+          <h4>{icon} {title}</h4>
+          <p>{org}</p>
+        </div>
+        """, unsafe_allow_html=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ----------------------------------------------------------------------------
